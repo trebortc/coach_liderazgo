@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>innerly - Coach Emocional</title>
+    <link rel="icon" sizes="64x64" href="/static/logo.ico">  
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="app">
+
+    <h1 class="titulo">
+        <img src="{{ url_for('static', path='logo.png') }}" alt="Innerly Logo" class="logo">
+    </h1>
+
+    <div class="progreso">
+        <div class="paso">🎯 Meta</div>
+        <div class="paso">⚡ Acción</div>
+        <div class="paso">🧠 Reflexión</div>
+    </div>
+
+    <div id="chat">        
+        {% for msg in historial %}
+
+            {% if msg.rol == "usuario" %}
+                <div class="mensaje usuario">
+                    <strong>Tú:</strong> <p>{{ msg.contenido | safe }}</p>
+                </div>
+
+            {% elif msg.rol == "asistente" %}
+                <div class="mensaje asistente">
+                    <strong>Coach:</strong>{{ msg.contenido | safe }}
+                </div>
+            {% endif %}
+
+        {% endfor %}
+    </div>
+
+    <form id="form-chat">
+        <input
+            type="text"
+            id="mensaje"
+            placeholder="Escribe tu respuesta..."
+            autocomplete="off"
+            required
+        />
+        <button type="submit">Enviar</button>
+    </form>
+</div>
+
+<script src="/static/js/chat.js"></script>
+</body>
+</html>

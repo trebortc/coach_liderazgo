@@ -1,0 +1,185 @@
+/* =========================
+   RESET BASE
+========================= */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    margin: 0;
+    padding: 0;
+    background: #f4f6f8;
+    background-image: url("/static/fondo.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll; /* mejor para móvil */
+}
+
+/* =========================
+   HEADER
+========================= */
+.titulo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    gap: 8px;
+}
+
+.logo {
+    height: 30px;
+}
+
+/* =========================
+   CONTENEDOR PRINCIPAL
+========================= */
+.app {
+    width: 95%;
+    max-width: 600px;
+    margin: 20px auto;
+    background: white;
+    padding: 16px;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* =========================
+   PROGRESO
+========================= */
+.progreso {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.paso {
+    flex: 1;
+    text-align: center;
+    padding: 8px;
+    border-radius: 20px;
+    background: #e0e0e0;
+    color: #3d4444;
+    margin: 0 4px;
+    font-weight: bold;
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+.paso.activo {
+    background: #7bc794;
+    color: white;
+}
+
+/* =========================
+   CHAT
+========================= */
+#chat {
+    min-height: 300px;
+    margin-bottom: 15px;
+}
+
+.mensaje {
+    margin-bottom: 10px;
+    padding: 10px 14px;
+    border-radius: 14px;
+    max-width: 85%;
+    word-wrap: break-word;
+    line-height: 1.4;
+}
+
+/* Usuario */
+.mensaje.usuario {
+    background: #bdedcc;
+    margin-left: auto;
+    text-align: left;
+}
+
+/* Asistente */
+.mensaje.asistente {
+    background: #bccaf4;
+    margin-right: auto;
+    text-align: left;
+}
+
+/* =========================
+   FORMULARIO
+========================= */
+form {
+    display: flex;
+    gap: 8px;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+input:focus {
+    border-color: #7bc794;
+}
+
+button {
+    padding: 10px 14px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: none;
+    background: #7bc794;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    white-space: nowrap;
+}
+
+button:hover {
+    background: #65b57f;
+}
+
+/* =========================
+   RESPONSIVE DESKTOP
+========================= */
+@media (min-width: 768px) {
+
+    body {
+        font-size: 15px;
+    }
+
+    .titulo {
+        height: 100px;
+    }
+
+    .logo {
+        height: 45px;
+    }
+
+    .app {
+        padding: 24px;
+    }
+
+    input {
+        font-size: 16px;
+    }
+
+    button {
+        font-size: 16px;
+    }
+
+    .mensaje {
+        max-width: 70%;
+    }
+}
+
+/* =========================
+   FONDO FIJO SOLO DESKTOP
+========================= */
+@media (min-width: 1024px) {
+    body {
+        background-attachment: fixed;
+    }
+}
