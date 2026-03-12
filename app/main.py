@@ -1,4 +1,4 @@
-from dotenv import load_dotenv 
+from dotenv import load_dotenv
 load_dotenv() #Permite cargar las variables de entorno, que se encuentra en el archivo .env
 
 import os #Permite importar utilidades del Sistema
