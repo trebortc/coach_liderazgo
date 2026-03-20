@@ -72,26 +72,26 @@ body {
 ========================= */
 .progreso {
     display: flex;
-    justify-content: space-between;
-    gap: 4px;
+    flex-wrap: wrap;        /* 2x2 en móvil */
+    gap: 6px;
     margin-bottom: 12px;
     flex-shrink: 0;
 }
 
-/* Móvil: icono arriba, texto abajo (column) */
+/* Móvil: 2 por fila, icono izquierda + texto derecha */
 .paso {
-    flex: 1;
+    flex: 0 0 calc(50% - 3px);  /* 2 columnas con el gap */
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 3px;
-    padding: 6px 2px;
+    gap: 5px;
+    padding: 7px 6px;
     border-radius: 14px;
     background: #65CCE4;
     color: #ffffff;
     font-weight: bold;
-    font-size: 8px;
+    font-size: 10px;
     letter-spacing: 0.3px;
     text-align: center;
     transition: background 0.3s ease, transform 0.2s ease;
@@ -236,8 +236,15 @@ button[type="submit"]:active {
         height: 34px;
     }
 
+    /* 4 botones en una sola fila */
+    .progreso {
+        flex-wrap: nowrap;
+        gap: 5px;
+    }
+
     /* Icono a la izquierda del texto (row) */
     .paso {
+        flex: 1;
         flex-direction: row;
         gap: 5px;
         font-size: 9px;
