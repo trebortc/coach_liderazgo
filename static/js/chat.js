@@ -1,6 +1,6 @@
-const form = document.getElementById("form-chat");
+const form  = document.getElementById("form-chat");
 const input = document.getElementById("mensaje");
-const chat = document.getElementById("chat");
+const chat  = document.getElementById("chat");
 
 form.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -10,37 +10,37 @@ form.addEventListener("submit", function (e) {
 
   agregarMensaje("Tú", texto);
   input.value = "";
+  input.disabled = true;
 
   fetch("/chat", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: `pregunta=${encodeURIComponent(texto)}`
   })
   .then(response => response.json())
   .then(data => {
-    // 👇 AQUÍ VA EXACTAMENTE LO QUE PREGUNTASTE
-    console.log(data)
     agregarMensaje("Coach", data.respuesta);
     actualizarProgreso(data.progreso);
+    input.disabled = false;
+    input.focus();
   })
   .catch(error => {
     console.error("Error:", error);
+    input.disabled = false;
   });
 });
 
-// ---------------- FUNCIONES ----------------
+// ─────────────────────────────────────────────
+//  FUNCIONES
+// ─────────────────────────────────────────────
 
 function agregarMensaje(autor, mensaje) {
   const div = document.createElement("div");
-  
-  if(autor == "Tú"){
+
+  if (autor === "Tú") {
     div.className = "mensaje usuario";
     div.innerHTML = `<strong>${autor}:</strong> <p>${mensaje}</p>`;
-  }
-
-  if(autor == "Coach"){
+  } else {
     div.className = "mensaje asistente";
     div.innerHTML = `<strong>${autor}:</strong> ${mensaje}`;
   }
@@ -50,9 +50,18 @@ function agregarMensaje(autor, mensaje) {
 }
 
 function actualizarProgreso(progreso) {
-  const pasos = document.querySelectorAll(".paso");
+  const explorar    = document.querySelector(".paso-explorar");
+  const entender    = document.querySelector(".paso-entender");
+  const identificar = document.querySelector(".paso-identificar");
+  const dirigir     = document.querySelector(".paso-dirigir");
 
-  pasos[0].classList.toggle("activo", progreso.meta);
-  pasos[1].classList.toggle("activo", progreso.accion);
-  pasos[2].classList.toggle("activo", progreso.reflexion);
+  if (explorar)    explorar.classList.toggle("activo",    !!progreso.explorar);
+  if (entender)    entender.classList.toggle("activo",    !!progreso.entender);
+  if (identificar) identificar.classList.toggle("activo", !!progreso.identificar);
+  if (dirigir)     dirigir.classList.toggle("activo",     !!progreso.dirigir);
 }
+
+// Scroll al fondo al cargar
+window.addEventListener("load", function () {
+  chat.scrollTop = chat.scrollHeight;
+});

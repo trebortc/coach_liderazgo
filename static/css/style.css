@@ -57,15 +57,32 @@ body {
 
 .paso {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
     text-align: center;
-    padding: 8px;
+    padding: 8px 4px;
     border-radius: 20px;
-    background: #e0e0e0;
-    color: #3d4444;
+    background: #65CCE4;
+    color: #ffffff;
     margin: 0 4px;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 10px;
+    letter-spacing: 0.4px;
     transition: all 0.3s ease;
+}
+
+.paso-icono {
+    height: 23px;
+    width: auto;
+    opacity: 0.85;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.paso.activo .paso-icono {
+    opacity: 1;
+    transform: scale(1.1);
 }
 
 .paso.activo {
