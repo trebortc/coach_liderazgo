@@ -1,21 +1,54 @@
 /* =========================
    RESET BASE
 ========================= */
-* {
+*, *::before, *::after {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* =========================
+   BODY — full height base
+========================= */
+html {
+    height: 100%;
 }
 
 body {
     font-family: Arial, sans-serif;
-    font-size: 13px;
-    margin: 0;
-    padding: 0;
+    font-size: 14px;
+    min-height: 100%;
+    min-height: 100dvh;
     background: #f4f6f8;
     background-image: url("/static/fondo.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: scroll; /* mejor para móvil */
+    background-attachment: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/* =========================
+   CONTENEDOR PRINCIPAL
+========================= */
+.app {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 640px;
+
+    /* Ocupa toda la pantalla en móvil */
+    min-height: 100dvh;
+
+    background: white;
+    padding: 12px 12px 0 12px;
+
+    /* Sin bordes en pantallas muy pequeñas */
+    border-radius: 0;
+    box-shadow: none;
 }
 
 /* =========================
@@ -25,178 +58,261 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80px;
-    gap: 8px;
+    padding: 10px 0 8px;
+    flex-shrink: 0;
 }
 
 .logo {
-    height: 30px;
+    height: 28px;
+    width: auto;
 }
 
 /* =========================
-   CONTENEDOR PRINCIPAL
-========================= */
-.app {
-    width: 95%;
-    max-width: 600px;
-    margin: 20px auto;
-    background: white;
-    padding: 16px;
-    border-radius: 14px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-}
-
-/* =========================
-   PROGRESO
+   PROGRESO — 4 FASES
 ========================= */
 .progreso {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 15px;
+    gap: 4px;
+    margin-bottom: 12px;
+    flex-shrink: 0;
 }
 
+/* Móvil: icono arriba, texto abajo (column) */
 .paso {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
-    text-align: center;
-    padding: 8px 4px;
-    border-radius: 20px;
+    justify-content: center;
+    gap: 3px;
+    padding: 6px 2px;
+    border-radius: 14px;
     background: #65CCE4;
     color: #ffffff;
-    margin: 0 4px;
     font-weight: bold;
-    font-size: 10px;
-    letter-spacing: 0.4px;
-    transition: all 0.3s ease;
+    font-size: 8px;
+    letter-spacing: 0.3px;
+    text-align: center;
+    transition: background 0.3s ease, transform 0.2s ease;
+    cursor: default;
+    user-select: none;
 }
 
 .paso-icono {
-    height: 23px;
+    height: 20px;
     width: auto;
     opacity: 0.85;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.25s ease;
+}
+
+.paso.activo {
+    background: #5A76B5;
+    color: white;
+    transform: scale(1.03);
 }
 
 .paso.activo .paso-icono {
     opacity: 1;
-    transform: scale(1.1);
-}
-
-.paso.activo {
-    background: #7bc794;
-    color: white;
+    transform: scale(1.08);
 }
 
 /* =========================
-   CHAT
+   CHAT — crece para llenar espacio
 ========================= */
 #chat {
-    min-height: 300px;
-    margin-bottom: 15px;
+    flex: 1;
+    overflow-y: auto;
+    padding: 4px 0 12px;
+    /* Scroll suave en iOS */
+    -webkit-overflow-scrolling: touch;
 }
 
 .mensaje {
     margin-bottom: 10px;
-    padding: 10px 14px;
+    padding: 9px 12px;
     border-radius: 14px;
-    max-width: 85%;
+    max-width: 88%;
     word-wrap: break-word;
-    line-height: 1.4;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    font-size: 13px;
 }
 
-/* Usuario */
 .mensaje.usuario {
     background: #bdedcc;
     margin-left: auto;
     text-align: left;
 }
 
-/* Asistente */
 .mensaje.asistente {
     background: #bccaf4;
     margin-right: auto;
     text-align: left;
 }
 
+.mensaje p       { margin: 4px 0; }
+.mensaje ul,
+.mensaje ol      { padding-left: 18px; margin: 4px 0; }
+.mensaje blockquote {
+    border-left: 3px solid #5A76B5;
+    margin: 6px 0 6px 2px;
+    padding: 3px 10px;
+    color: #555;
+    font-style: italic;
+}
+.mensaje strong  { font-weight: bold; }
+
 /* =========================
-   FORMULARIO
+   FORMULARIO — anclado abajo
 ========================= */
 form {
     display: flex;
     gap: 8px;
+    padding: 10px 0;
+    /* Respeta la barra de navegación de iOS */
+    padding-bottom: calc(10px + env(safe-area-inset-bottom));
+    flex-shrink: 0;
+    background: white;
+    position: sticky;
+    bottom: 0;
 }
 
-input {
+input[type="text"] {
     flex: 1;
-    padding: 10px;
+    padding: 10px 12px;
     font-size: 14px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+    border-radius: 24px;
+    border: 1.5px solid #ccc;
     outline: none;
+    background: #f9f9f9;
+    transition: border-color 0.2s ease;
+    min-width: 0; /* evita overflow en flex */
 }
 
-input:focus {
-    border-color: #7bc794;
+input[type="text"]:focus {
+    border-color: #65CCE4;
+    background: #fff;
 }
 
-button {
-    padding: 10px 14px;
+button[type="submit"] {
+    padding: 10px 16px;
     font-size: 14px;
-    border-radius: 8px;
+    border-radius: 24px;
     border: none;
-    background: #7bc794;
+    background: #65CCE4;
     color: white;
+    font-weight: bold;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: background 0.25s ease;
     white-space: nowrap;
+    flex-shrink: 0;
 }
 
-button:hover {
-    background: #65b57f;
+button[type="submit"]:hover,
+button[type="submit"]:active {
+    background: #4bb8d4;
 }
 
 /* =========================
-   RESPONSIVE DESKTOP
+   TABLET (≥ 540px)
+========================= */
+@media (min-width: 540px) {
+
+    body {
+        padding: 16px 8px;
+        justify-content: flex-start;
+    }
+
+    .app {
+        min-height: calc(100dvh - 32px);
+        height: calc(100dvh - 32px);
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.10);
+        padding: 14px 16px 0 16px;
+    }
+
+    .logo {
+        height: 34px;
+    }
+
+    /* Icono a la izquierda del texto (row) */
+    .paso {
+        flex-direction: row;
+        gap: 5px;
+        font-size: 9px;
+        padding: 8px 6px;
+        border-radius: 20px;
+    }
+
+    .paso-icono {
+        height: 21px;
+    }
+
+    .mensaje {
+        font-size: 14px;
+        max-width: 80%;
+    }
+}
+
+/* =========================
+   DESKTOP (≥ 768px)
 ========================= */
 @media (min-width: 768px) {
 
     body {
-        font-size: 15px;
-    }
-
-    .titulo {
-        height: 100px;
-    }
-
-    .logo {
-        height: 45px;
+        padding: 24px 12px;
     }
 
     .app {
-        padding: 24px;
+        min-height: calc(100dvh - 48px);
+        height: calc(100dvh - 48px);
+        padding: 18px 24px 0 24px;
     }
 
-    input {
-        font-size: 16px;
+    .titulo {
+        padding: 12px 0 10px;
     }
 
-    button {
-        font-size: 16px;
+    .logo {
+        height: 42px;
+    }
+
+    .paso {
+        font-size: 11px;
+        padding: 9px 8px;
+        gap: 6px;
+    }
+
+    .paso-icono {
+        height: 22px;
     }
 
     .mensaje {
-        max-width: 70%;
+        font-size: 15px;
+        max-width: 72%;
+        padding: 10px 14px;
+    }
+
+    input[type="text"] {
+        font-size: 15px;
+    }
+
+    button[type="submit"] {
+        font-size: 15px;
+        padding: 10px 22px;
     }
 }
 
 /* =========================
-   FONDO FIJO SOLO DESKTOP
+   PANTALLAS GRANDES (≥ 1024px)
 ========================= */
 @media (min-width: 1024px) {
     body {
         background-attachment: fixed;
+    }
+
+    .app {
+        max-width: 680px;
     }
 }
