@@ -1,6 +1,7 @@
 const form  = document.getElementById("form-chat");
 const input = document.getElementById("mensaje");
 const chat  = document.getElementById("chat");
+const btnReiniciar = document.getElementById("btn-reiniciar");
 
 form.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -29,6 +30,12 @@ form.addEventListener("submit", function (e) {
     input.disabled = false;
   });
 });
+
+if (btnReiniciar) {
+  btnReiniciar.addEventListener("click", function () {
+    window.location.href = "/";
+  });
+}
 
 // ─────────────────────────────────────────────
 //  FUNCIONES

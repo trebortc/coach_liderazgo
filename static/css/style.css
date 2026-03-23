@@ -214,6 +214,27 @@ button[type="submit"]:active {
     background: #4bb8d4;
 }
 
+#btn-reiniciar {
+    padding: 10px 14px;
+    font-size: 14px;
+    border-radius: 24px;
+    border: 1.5px solid #cfd8dc;
+    background: #ffffff;
+    color: #546e7a;
+    font-weight: bold;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+#btn-reiniciar:hover,
+#btn-reiniciar:active {
+    background: #f3f7f9;
+    border-color: #b0bec5;
+    color: #455a64;
+}
+
 /* =========================
    TABLET (≥ 540px)
 ========================= */
@@ -308,6 +329,11 @@ button[type="submit"]:active {
     button[type="submit"] {
         font-size: 15px;
         padding: 10px 22px;
+    }
+
+    #btn-reiniciar {
+        font-size: 15px;
+        padding: 10px 16px;
     }
 }
 

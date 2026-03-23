@@ -222,6 +222,7 @@ def inicializar_sesion(request: Request):
 # ─────────────────────────────────────────────
 @app.get("/", response_class=HTMLResponse)
 def index(request: Request):
+    request.session.clear()
     inicializar_sesion(request)
     return templates.TemplateResponse("index.html", {
         "request": request,
