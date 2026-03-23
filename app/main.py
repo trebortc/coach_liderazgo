@@ -151,7 +151,7 @@ EJERCICIOS_RESPIRACION = [
 ]
 
 MENSAJE_FINAL = (
-    "> Si te sientes muy abrumado, buscar ayuda es una buena opción.\n\n"
+    "> Si te sientes muy abrumado, buscar ayuda es una buena opción<<.\n\n"
     "Gracias por compartir este momento conmigo. Me alegra haber podido "
     "acompañarte y escuchar cómo te sientes. Recuerda que siempre puedes "
     "volver cuando necesites reflexionar, ordenar tus ideas o simplemente "
@@ -164,10 +164,10 @@ MENSAJE_FINAL = (
 # ─────────────────────────────────────────────
 # Estado → (explorar, entender, identificar, dirigir)
 PROGRESO_POR_ESTADO = {
-    "Q1":  (False, False, False, False),
-    "Q2":  (False, False, False, False),
-    "Q3":  (False, False, False, False),
-    "Q4":  (False, False, False, False),
+    "Q1":  (True,  False, False, False),
+    "Q2":  (True,  False, False, False),
+    "Q3":  (True,  False, False, False),
+    "Q4":  (True,  False, False, False),
     "Q5":  (True,  False, False, False),
     "Q6":  (True,  False, False, False),
     "Q7":  (True,  True,  False, False),
@@ -281,7 +281,7 @@ def procesar_estado(estado: str, respuesta_usuario: str, historial: list) -> tup
     if estado == "GROW_Q3":
         return "GROW_Q4", PREGUNTAS_TECNICAS["GROW_Q4"]
     if estado == "GROW_Q4":
-        return "GROW_Q5", PREGUNTAS_TECNICAS["GROW_Q5"]
+        return "FINAL", MENSAJE_FINAL
     if estado == "GROW_Q5":
         return "FINAL", MENSAJE_FINAL
 
